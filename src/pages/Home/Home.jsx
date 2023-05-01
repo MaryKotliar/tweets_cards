@@ -4,7 +4,8 @@ export const Home = () => {
   return (
     <Container>
       <Text>
-        Welcome! <Link to="/tweets">Here</Link> you can see tweetcards. Enjoy :){' '}
+        Welcome! <Link to="/tweets">Here</Link> you can see tweetcards. Please
+        choose necessary option in select. Enjoy :){' '}
       </Text>
     </Container>
   );

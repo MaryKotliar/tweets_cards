@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { Button } from '../../components/Button/Button';
 import { UserList } from '../../components/UserList/UserList';
 import { Dropdown } from 'components/Dropdown/Dropdown';
+import { Loader } from 'components/Loader';
 import { fetchUsers } from 'service/api';
 import toast, { Toaster } from 'react-hot-toast';
 export const Tweets = () => {
@@ -24,8 +25,7 @@ export const Tweets = () => {
     }
   };
   const currentUsers = current();
-  // const currentUsers = selectedUsers.slice(0, indexOfLastUser);
-  // console.log(currentUsers);
+
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
 
@@ -55,7 +55,7 @@ export const Tweets = () => {
     } else if (selectedOption.value === 'following') {
       const arr = JSON.parse(localStorage.getItem('followings')) || [];
       if (arr.length === 0) {
-        toast.error('You have no followings tweets');
+        toast.error('You have no followings tweets. Please add one.');
         setSelectedUsers([]);
       }
       const ides = arr.map(item => item.id);
@@ -68,9 +68,10 @@ export const Tweets = () => {
   }
   return (
     <Container>
+      {isLoading && <Loader />}
       {!isLoading && <GoBackLink to={backLinkHref}>Go Back</GoBackLink>}
       <Dropdown onSelect={onSelect} />
-      {users.length > 0 && <UserList users={currentUsers} />}
+      {users.length > 0 && !isLoading && <UserList users={currentUsers} />}
       {currentUsers.length > 2 && totalPages !== currentPage && !isLoading && (
         <Button type="button" onClick={loadMore} text="LOADMORE" />
       )}
