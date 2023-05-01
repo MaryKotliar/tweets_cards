@@ -28,7 +28,6 @@ export const UserCard = ({
   }, []);
   const toggle = () => {
     if (!isFollow) {
-      console.log(isFollow);
       const plus = Number(followers) + 1;
 
       setArr(prev => [...prev, { id, plus }]);
