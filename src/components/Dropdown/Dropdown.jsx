@@ -7,7 +7,7 @@ const options = [
   { value: 'following', label: 'following' },
 ];
 export const Dropdown = ({ onSelect }) => {
-  const [_, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
   const handleChange = selectedOption => {
     setSelectedOption(selectedOption);
     onSelect(selectedOption);
@@ -16,7 +16,7 @@ export const Dropdown = ({ onSelect }) => {
   return (
     <Box>
       <Select
-        defaultValue={options[0]}
+        defaultValue={selectedOption}
         onChange={handleChange}
         options={options}
       />
