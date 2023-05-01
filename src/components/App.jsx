@@ -1,16 +1,20 @@
+import { GlobalStyle } from './GlobalStyle';
+import { Tweets } from 'pages/Tweets/Tweets';
+import { Home } from 'pages/Home/Home';
+import { NotFound } from 'pages/NotFound/NotFound';
+import { Route, Routes } from 'react-router-dom';
+
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101'
-      }}
-    >
-      React homework template
-    </div>
+    <>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        <Route path="/tweets" element={<Tweets />} />
+
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+      <GlobalStyle />
+    </>
   );
 };
