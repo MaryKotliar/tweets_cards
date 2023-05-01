@@ -7,7 +7,7 @@ const options = [
   { value: 'following', label: 'following' },
 ];
 export const Dropdown = ({ onSelect }) => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [_, setSelectedOption] = useState(null);
   const handleChange = selectedOption => {
     setSelectedOption(selectedOption);
     onSelect(selectedOption);
