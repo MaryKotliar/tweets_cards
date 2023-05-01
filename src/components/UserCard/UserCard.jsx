@@ -8,17 +8,16 @@ import {
   LogoWrapper,
 } from './UserCard.styled';
 import logo from '../../images/Logo.png';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Button } from 'components/Button/Button';
 import { scrollToElem } from 'helpers/scrollToElem';
 
-export const UserCard = ({ user: { id, avatar, tweets, followers } }) => {
-  const [arr, setArr] = useState(() => {
-    return JSON.parse(localStorage.getItem('followings')) || [];
-  });
-
+export const UserCard = ({
+  user: { id, avatar, tweets, followers },
+  arr,
+  setArr,
+}) => {
   const [plus] = arr.filter(item => item.id === id).map(item => item.plus);
-  const [updatedFollowers, setUpdatedFollowers] = useState(plus ?? followers);
 
   const isFollow = arr.find(item => item.id === id);
 
@@ -29,13 +28,13 @@ export const UserCard = ({ user: { id, avatar, tweets, followers } }) => {
   }, []);
   const toggle = () => {
     if (!isFollow) {
+      console.log(isFollow);
       const plus = Number(followers) + 1;
-      setUpdatedFollowers(plus);
-      arr.push({ id, plus });
-      setArr(arr);
-      localStorage.setItem('followings', JSON.stringify(arr));
+
+      setArr(prev => [...prev, { id, plus }]);
+
+      return;
     } else {
-      setUpdatedFollowers(prev => Number(prev) - 1);
       const arr2 = arr.filter(item => item.id !== id);
       setArr(arr2);
       localStorage.setItem('followings', JSON.stringify(arr2));
@@ -43,7 +42,9 @@ export const UserCard = ({ user: { id, avatar, tweets, followers } }) => {
     }
   };
 
-  const followersComma = String(updatedFollowers).replace(
+  localStorage.setItem('followings', JSON.stringify(arr));
+
+  const followersComma = String(plus ? plus : followers).replace(
     /(?<!\..*)(\d)(?=(?:\d{3})+(?:\.|$))/g,
     '$1,'
   );

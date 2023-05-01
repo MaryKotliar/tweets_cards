@@ -16,8 +16,7 @@ export const Dropdown = ({ onSelect }) => {
   return (
     <Box>
       <Select
-        placeholder="tweets"
-        defaultValue={selectedOption}
+        defaultValue={options[0]}
         onChange={handleChange}
         options={options}
       />

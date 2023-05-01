@@ -13,11 +13,20 @@ export const Tweets = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [isLoading, setIsLoading] = useState(false);
-
+  console.log(totalPages);
+  console.log(currentPage);
   const limit = 3;
   const indexOfLastUser = currentPage * limit;
-  const currentUsers = selectedUsers.slice(0, indexOfLastUser);
-
+  const current = () => {
+    if (selectedUsers.length > 0) {
+      return selectedUsers.slice(0, indexOfLastUser);
+    } else {
+      return users.slice(0, indexOfLastUser);
+    }
+  };
+  const currentUsers = current();
+  // const currentUsers = selectedUsers.slice(0, indexOfLastUser);
+  // console.log(currentUsers);
   const location = useLocation();
   const backLinkHref = location.state?.from ?? '/';
 
@@ -63,11 +72,11 @@ export const Tweets = () => {
       {!isLoading && <GoBackLink to={backLinkHref}>Go Back</GoBackLink>}
       <Dropdown onSelect={onSelect} />
       {users.length > 0 && <UserList users={currentUsers} />}
-      {currentUsers.length > 0 && totalPages !== currentPage && !isLoading && (
+      {currentUsers.length > 2 && totalPages !== currentPage && !isLoading && (
         <Button type="button" onClick={loadMore} text="LOADMORE" />
       )}
 
-      <Toaster position="top-right" />
+      <Toaster position="top-center" />
     </Container>
   );
 };
