@@ -13,8 +13,7 @@ export const Tweets = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState();
   const [isLoading, setIsLoading] = useState(false);
-  console.log(totalPages);
-  console.log(currentPage);
+
   const limit = 3;
   const indexOfLastUser = currentPage * limit;
   const current = () => {
